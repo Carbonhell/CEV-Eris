@@ -1,3 +1,16 @@
+/datum/rnd_queue_design
+	var/name
+	var/datum/design/design
+	var/amount
+
+/datum/rnd_queue_design/New(datum/design/D, Amount)
+	name = D.name
+	if(Amount > 1)
+		name = "[name] x[Amount]"
+
+	design = D
+	amount = Amount
+
 /obj/machinery/r_n_d/protolathe
 	name = "protolathe"
 	icon_state = "protolathe"
@@ -171,7 +184,8 @@
 				user << SPAN_NOTICE("You add [amount] [material] sheet\s to \the [src]. Material storage is [TotalMaterials()]/[max_material_storage] full.")
 
 	busy = FALSE
-	linked_console.updateUsrDialog()
+	if(linked_console)
+		SSnano.update_uis(linked_console)
 	return TRUE
 
 /obj/machinery/r_n_d/protolathe/examine(mob/user)
@@ -182,9 +196,19 @@
 	var/obj/effect/temp_visual/resourceInsertion/protolathe/effect = new(src.loc)
 	effect.setMaterial(name)
 
-/obj/machinery/r_n_d/protolathe/proc/addToQueue(datum/design/D)
-	queue += D
-	return
+/obj/machinery/r_n_d/protolathe/proc/queue_design(datum/design/D, amount)
+	var/datum/rnd_queue_design/RNDD = new /datum/rnd_queue_design(D, amount)
+
+	queue += RNDD
+	if(!busy)
+		produce_design(RNDD)
+
+/obj/machinery/r_n_d/protolathe/proc/clear_queue()
+	queue = list()
+
+/obj/machinery/r_n_d/protolathe/proc/restart_queue()
+	if(queue.len && !busy)
+		produce_design(queue[1])
 
 /obj/machinery/r_n_d/protolathe/proc/removeFromQueue(var/index)
 	queue.Cut(index, index + 1)
@@ -213,7 +237,7 @@
 			ret += C
 	return ret
 
-/obj/machinery/r_n_d/protolathe/proc/build(datum/design/D)
+/obj/machinery/r_n_d/protolathe/proc/produce_design(datum/design/D)
 	var/power = active_power_usage
 	for(var/M in D.materials)
 		power += round(D.materials[M] / 5, 0.01)

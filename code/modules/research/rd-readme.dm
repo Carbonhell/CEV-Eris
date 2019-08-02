@@ -24,9 +24,4 @@ are the "Tech Trees" of the game. You start out with a number of them at the gam
 Destructive Analyzer. By themselves, they don't do a whole lot. However, they unlock Device Designs. This is the information used
 by the circuit imprinter and the protolathe to produce objects. It also tracks the current reliability of that particular design.
 
-//EXISTING TECH
-Each tech path should have at LEAST one item at every level (levels 1 - 20). This is to allow for a more fluid progression of the
-researching. Existing tech (ie, anything you can find on the station or get from the quartermaster) shouldn't go higher then
-level 5 or 7. Everything past that should be stuff you research.
-
 */

@@ -13,13 +13,12 @@
 	var/category = null 			//Primarily used for Mech Fabricators, but can be used for anything.
 	var/time = 0					//How many ticks it requires to build. If 0, calculated from the amount of materials used.
 
-	var/list/req_tech = null		//IDs of that techs the object originated from and the minimum level requirements.
-									//Use null to make design undiscoverable in R&D.
-
 	var/list/ui_data = null			//Pre-generated UI data, to be sent into NanoUI/TGUI interfaces.
 
 	// An MPC file containing this design. You can use it directly, but only if it doesn't interact with the rest of MPC system. If it does, use copies.
 	var/datum/computer_file/binary/design/file
+
+	var/starts_unlocked = FALSE     //If true does not require any technologies and unlocked from the start
 
 
 //These procs are used in subtypes for assigning names and descriptions dynamically

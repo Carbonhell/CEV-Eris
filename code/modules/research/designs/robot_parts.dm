@@ -68,7 +68,7 @@
 // Robot updates
 /datum/design/research/item/robot_upgrade
 	build_type = MECHFAB
-	category = "Cyborg Upgrade Modules"
+	category = CAT_CYBO
 	name_category = "robot upgrade"
 
 /datum/design/research/item/robot_upgrade/rename
@@ -109,5 +109,5 @@
 /datum/design/research/item/robot_upgrade/syndicate
 	name = "Illegal upgrade"
 	desc = "Allows for the construction of lethal upgrades for cyborgs."
-	req_tech = list(TECH_COMBAT = 4, TECH_ILLEGAL = 3)
 	build_path = /obj/item/borg/upgrade/syndicate
+	category = CAT_ILLE
