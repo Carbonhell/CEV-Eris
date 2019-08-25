@@ -1,0 +1,39 @@
+<!--
+    Hacking minigame. Based on nodes placed in a grid layout, the user starts on a node, with an antivirus (the enemy) starting on another,
+    and several nodes of different types placed between them, with one (or more) special ones that need to be captured by the user to win the minigame.
+    The antivirus has to capture the user's node to make him lose. They both have to follow uni/bidirectional paths between nodes to move around the grid.
+-->
+<style>
+    .gridcell {
+        float: left;
+        background-color: red;
+        width: {{:100/data.size}}%;
+        height: 100%;
+    }
+
+    .row {
+        height: {{:100/data.size}}%;
+        width: 100%;
+    }
+    
+    .main {
+        height: 400px;
+        width: 400px;
+        margin: auto;
+</style>
+<div class="main">
+{{ for(var p=0;p<data.size;p++) { }}
+    <div class="row">
+    {{ for(var j=0;j<data.size;j++) { }}
+        <div class="gridcell" 
+        {{ for(var x in data.cellsData) { }}
+        {{if data.cellsData[x][0] == p && data.cellsData[x][1] == j}}
+                style="background-color: green"
+        {{/if}}
+        {{}}}
+        >
+        </div>
+    {{}}}
+    </div>
+{{}}}
+</div>
